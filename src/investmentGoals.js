@@ -3,8 +3,8 @@ function convertToMonthReturnRate(yearReturnRate) {
     return (yearReturnRate) ** (1 / 12);
 }
 
-// Função de retorno
-function generateReturnsArray(
+// Função de retorno para ser exportada para outrs arquivos
+ export function generateReturnsArray(
     startingAmount = 0,
     timeHorizon = 0,
     timePeriod = 'monthly',
@@ -35,9 +35,12 @@ function generateReturnsArray(
     const returnsArray = [referenceInvestedAmountObject];
 
     // Referenciando ao investimento inicial investedAmount e controle de tempo month
-    for (let timeReference = 1; timeReference <= finalTimeHorizon; timeReference++) {
+    for (let timeReference = 1; 
+        timeReference <= finalTimeHorizon; 
+        timeReference++) {
         // Referência ao término do mês
-        const totalAmount = returnsArray[timeReference - 1].totalAmount * finalReturnRate + monthlyContribution;
+        const totalAmount = 
+        returnsArray[timeReference - 1].totalAmount * finalReturnRate + monthlyContribution;
 
         // Referência ao interestReturns quanto tem de investimento
         const interestReturns = totalAmount - (returnsArray[timeReference - 1].totalAmount + monthlyContribution);

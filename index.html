@@ -16,48 +16,49 @@
       <h1 class="text-2xl px-6  py- 2 font-bold ">Calculadora de Investimentos</h1>
 
       <!-- Width -->
-      <form class="w-full" >
+      <form  id="investiment-form"  name="investiment-form" class="w-full" >
 
-        <div class="flex w-full flex-col  px-6 my-2">
+        <div class="flex w-full flex-col  px-6 my-2 h-[4.25rem]" >
           <label  class="font-bold text-gray-700" for="starting-amount">Investimneto inicial</label>
-          <div class=" flex">
+          <div class=" flex ">
              <!-- input desabilitado  Width Border Width--> 
           <input value="R$" class="w-1/6 text-center rounded-l-lg" type="text" disabled>
-          <input type="text" class="w-5/6 rounded-r-lg  px-2" id="starting-amount" placeholder="0.00">
+          <input type="text" class="w-5/6 rounded-r-lg  px-2" id="starting-amount" name="starting-amount" placeholder="0.00" required>
           <!-- <input type="text" class="w-1/3" value="Mensal"> -->
            <!-- Border Width -->
           
         </div>
         </div>
-        <div class="flex w-full flex-col  px-6 my-2">
+        <p> </p>
+        <div class="flex w-full flex-col  px-6 my-2 h-[4.25rem]">
           <label  class="font-bold text-gray-700" for="additional-contribution">Aportes adcionais</label>
           <div class=" flex">
              <!-- input desabilitado  Width Border Width--> 
           <input value="R$" class="w-1/6 text-center rounded-l-lg" type="text" disabled>
-          <input type="text" class="w-5/6 rounded-r-lg " id="additional-contribution" placeholder="0.00">
+          <input type="text" class="w-5/6 rounded-r-lg " id="additional-contribution" name="additional-contribution" placeholder="0.00">
       
           
         </div>
         </div>
 
-        <div class="flex w-full flex-col  px-6 my-2">
+        <div class="flex w-full flex-col  px-6 my-2 h-[4.25rem]">
           <label  class="font-bold text-gray-700" for="time-amount">Prazo</label>
           <div class=" flex">
-          <input type="text" class="w-2/3 rounded-l-lg px-2" id="time-amount" placeholder="0">
+          <input type="text" class="w-2/3 rounded-l-lg px-2" id="time-amount" name="time-amount" placeholder="0" required>
            <!-- Border Width -->
-          <select id="time-amount-period" class="w-1/3 rounded-r-lg border-l-2 border-emerald-600 text-center hover:bg-emerald-700 hover: text-slate-950 font-bold text-gray-700" >
+          <select id="time-amount-period"  name="time-amount-period" class="w-1/3 rounded-r-lg border-l-2 border-emerald-600 text-center hover:bg-emerald-700 hover: text-slate-950 font-bold text-gray-700" >
             <option  value="monthly">Mensal</option>
             <option value="yaerly">Anual</option>
           </select>
         </div>
         </div>
         
-        <div class="flex w-full flex-col  px-6 my-2">
+        <div class="flex w-full flex-col  px-6 my-2 h-[4.25rem]">
           <label  class="font-bold text-gray-700" for="return-rate">Rentabilidade</label>
           <div class=" flex">
              <!-- input desabilitado  Width Border Width--> 
           <input value="%" class="w-1/6 text-center rounded-l-lg" type="text" disabled>
-          <input type="text" class="w-1/2 px-2" id="return-rate" placeholder="0">
+          <input type="text" class="w-1/2 px-2" id="return-rate" name="return-rate" placeholder="0" required>
            <!-- Border Width -->
           <select id="evaluatin-period" class="w-1/3 rounded-r-lg border-l-2 border-emerald-600 text-center hover:bg-emerald-700 hover: text-slate-950   font-bold text-gray-700" >
             <option  value="monthly">Mensal</option>
@@ -66,32 +67,37 @@
         </div>
         </div>
 
-        <div class="flex w-full flex-col  px-6 my-2">
-          <label  class="font-bold text-gray-700" for="tex-rate">Impostos sobre lucros</label>
+        <div class="flex w-full flex-col  px-6 my-2 h-[4.25rem]">
+          <label  class="font-bold text-gray-700" for="tax-rat">Impostos sobre lucros</label>
 
           <div class=" flex">
              <!-- input desabilitado  Width Border Width--> 
           <input value="%" class="w-1/6 text-center rounded-l-lg" type="text" disabled>
-          <input type="text" class="w-5/6 rounded-r-lg px-2" id="tex-rate" placeholder="0">
+          <input type="text" class="w-5/6 rounded-r-lg px-2" id="tax-rate" name="tax-rate" placeholder="0">
          
           
         </div>
         </div>
 
       </form>
+
+
       <div class="flex h-12 px-2 my-8  w-full gap-2"> 
 
-        <button class="w-1/2 rounded-l-lg  rounded-r-lg  bg-emerald-800 text-slate-200 hover:bg-emerald-800"> Calcular </button>
-        <button class="w-1/2 rounded-l-lg  rounded-r-lg hover:bg-emerald-500">Limpar</button>
+        <button type="submit" id="calculate-Results "  
+          form="investiment-form"
+      
+         class="w-1/2 rounded-l-lg  rounded-r-lg  bg-emerald-800 text-slate-200 hover:bg-emerald-800"> Calcular </button>
+        <button  id="clear-form" class="w-1/2 rounded-l-lg  rounded-r-lg hover:bg-emerald-500">Limpar</button>
 
       </div>
     </aside>
 
     <main>
-  <p> Resultado</p>
+
     </main>
 
  
-    
+  <script type="module" src="./main.js"></script>
   </body>
 </html>
