@@ -1,14 +1,37 @@
 
 import { generateReturnsArray } from "./src/investmentGoals";
+//infortando a biblooteca de graficos 
+import { Chart } from "chart.js/auto";
+
+// const calculateButton = document.getElementById('calculate-results');
+
+
+//Variaveis para amazenar os gráficos
+const finalMoneyChart = document.getElementById('final-money-distribution');
+const progressionChart = document.getElementById('progression');
+
+let doughnutChartReference = {};
+let progressionChartReference = {};
+
+
+const finalmoneydistribution =document.getElementById('final-money-distribution');
+const progression =document.getElementById('progression');
 
 const form = document.getElementById('investiment-form');
 const clearFormButton = document.getElementById('clear-form');
+//função para formatar as casa décimais do gráfico Doughnut
+function formatCurrency(value) {
+  return value.toFixed(2);
+}
+
+
 function renderProgression(evt) {
     evt.preventDefault();
 //caso tenha algum compo com um dado errado afunção impede que ele seja execultada 
     if (document.querySelector('.error')) {
         return;
       }
+      resetCharts();
      // const startingAmount = Number(form['startingAmount'].value); método para converte , para .       .replace(',', '.')
     const startingAmount = Number(document.getElementById('starting-amount').value.replace(',', '.')
 );
@@ -38,26 +61,102 @@ function renderProgression(evt) {
         returnRatePeriod
     );
 
-    console.log(returnsArray);
-
+//Criar um gráfico com a mpmjs
+const finalInvestmentObject = returnsArray[returnsArray.length - 1];
+doughnutChartReference = new Chart(finalMoneyChart, {
+    type: 'doughnut',
+    data: {
+      labels: ['Total investido', 'Rendimento', 'Imposto'],
+      datasets: [
+        {
+          data: [
+            formatCurrency(finalInvestmentObject.investedAmount),
+            
+            formatCurrency(finalInvestmentObject.totalInterestReturns * (1 - taxRate / 100)),
+           
+        
+            formatCurrency(finalInvestmentObject.totalInterestReturns * (taxRate / 100)),
+           
+          ],
+          backgroundColor: [
+            'rgb(255, 99, 132)',
+            'rgb(54, 162, 235)',
+            'rgb(255, 205, 86)',
+          ],
+          hoverOffset: 4,
+        },
+      ],
+    }
+  });
+ //gráficos de barras Bar
+ progressionChartReference = new Chart(progressionChart, {
+    type: 'bar',
+    data: {
+      labels: returnsArray.map((investmentObject) => investmentObject.month),
+      datasets: [
+        {
+          label: 'Total Investido',
+          data: returnsArray.map((investmentObject) =>
+            formatCurrency(investmentObject.investedAmount)
+          ),
+          backgroundColor: 'rgb(255, 99, 132)',
+        },
+        {
+          label: 'Retorno do Investimento',
+          data: returnsArray.map((investmentObject) =>
+            formatCurrency(investmentObject.interestReturns)
+          ),
+          backgroundColor: 'rgb(54, 162, 235)',
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      scales: {
+        x: {
+          stacked: true,
+        },
+        y: {
+          stacked: true,
+        },
+      },
+    }
+  });
 }
-// Adicionado a função de limpar 
-function clearForm() {
-    form['starting-amount'].value = '';
-    form['additional-contribution'].value = '';
-    form['time-amount'].value = '';
-    form['return-rate'].value = '';
-    form['tax-rate'].value = '';
+//função para limpar os grafico
+  function isObjectEmpty(obj) {
+  return Object.keys(obj).length === 0;
+}
 
-
-    //Acessando todos o elemento que esteja com a classe error e limpa todos os campos um por um 
-    const errorInputContainers = document.querySelectorAll('.error');
-
-  for (const errorInputContainer of errorInputContainers) {
-    errorInputContainer.classList.remove('error');
-    errorInputContainer.parentElement.querySelector('p').remove();
+//função para limpar os grafico
+function resetCharts() {
+  if (
+    !isObjectEmpty(doughnutChartReference) &&
+    !isObjectEmpty(progressionChartReference)
+  ) {
+    doughnutChartReference.destroy();
+    progressionChartReference.destroy();
   }
 }
+  
+    // Adicionado a função de limpar 
+    function clearForm() {
+      form['starting-amount'].value = '';
+      form['additional-contribution'].value = '';
+      form['time-amount'].value = '';
+      form['return-rate'].value = '';
+      form['tax-rate'].value = '';
+    
+      resetCharts();
+    
+      const errorInputContainers = document.querySelectorAll('.error');
+     //Acessando todos o elemento que esteja com a classe error e limpa todos os campos um por um 
+      for (const errorInputContainer of errorInputContainers) {
+        errorInputContainer.classList.remove('error');
+        errorInputContainer.parentElement.querySelector('p').remove();
+      }
+    }
+    
 
 
 ///evt.target aponta para o cara do evento que recebeu o blur
@@ -103,5 +202,7 @@ for (const formElement of form) {
       formElement.addEventListener('blur', validateInput);
     }
 }
+
 form.addEventListener('submit', renderProgression);
+// calculateButton.addEventListener('click', renderProgression);
 clearFormButton.addEventListener('click', clearForm);

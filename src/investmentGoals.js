@@ -38,20 +38,20 @@ function convertToMonthReturnRate(yearReturnRate) {
     for (let timeReference = 1; 
         timeReference <= finalTimeHorizon; 
         timeReference++) {
-        // Referência ao término do mês
-        const totalAmount = 
-        returnsArray[timeReference - 1].totalAmount * finalReturnRate + monthlyContribution;
 
-        // Referência ao interestReturns quanto tem de investimento
-        const interestReturns = totalAmount - (returnsArray[timeReference - 1].totalAmount + monthlyContribution);
+// Referência ao término do mês
+            const totalAmount =
+      returnsArray[timeReference - 1].totalAmount * finalReturnRate +
+      monthlyContribution;
+      // Referência ao interestReturns quanto tem de investimento
+    const interestReturns =
+      returnsArray[timeReference - 1].totalAmount * (finalReturnRate - 1);
+      // Referência a totalInterestReturns quanto foi investido ao término de cada mês 
+    const investedAmount = startingAmount + monthlyContribution * timeReference;
+    // Referência ao total investido
+    const totalInterestReturns = totalAmount - investedAmount;
 
-        // Referência a totalInterestReturns quanto foi investido ao término de cada mês 
-        const investedAmount = startingAmount + monthlyContribution * timeReference;
-
-        // Referência ao total investido
-        const totalInterestReturns = totalAmount - investedAmount;
-
-        // Criando o novo objeto
+        // // Criando o novo objeto
         returnsArray.push({
             investedAmount: investedAmount,
             interestReturns: interestReturns,

@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Calculadora de Investimentos</title>
   <link rel="stylesheet" href="./style.css">
+
+  
   </head>
 
   <!--  definir a altura de um elemento/ Display Grid, Tailwind  -->
@@ -92,9 +94,23 @@
 
       </div>
     </aside>
+    <!-- h-full gante que o elemento pegue 100% do espaço do pai disponivél para ele -->
+    <main class="h-full">
+<section id="chart-container">
+  <div class="h-[36%] flex flex-col items-center pb-10">
+    <canvas id="final-money-distribution"></canvas>
+    <p>Resultado Final</p>
+  </div>
+  <div id="h-[56%] flex flex-col items-center">
+    <p>Progressão</p>
+    <!--  -->
+    <canvas id="progression"
+    ></canvas>
+  </div>
 
-    <main>
+  
 
+</section>
     </main>
 
  
