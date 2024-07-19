@@ -95,14 +95,14 @@
       </div>
     </aside>
     <!-- h-full gante que o elemento pegue 100% do espaço do pai disponivél para ele -->
-    <main class="h-full">
-<section id="chart-container">
-  <div class="h-[36%] flex flex-col items-center pb-10">
+    <main class="row-span-2 col-span-2 relative" >
+<section id="chart-container" class="h-full basis-full shrink-0">
+  <div class="h-[30%] flex flex-col items-center pb-10">
+    <p class="font-bold text-lg">Resultado Final</p>
     <canvas id="final-money-distribution"></canvas>
-    <p>Resultado Final</p>
   </div>
-  <div id="h-[56%] flex flex-col items-center">
-    <p>Progressão</p>
+  <div id="h-[40%] flex flex-col items-center">
+    <p class="font-bold text-lg  text-center ">Progressão</p>
     <!--  -->
     <canvas id="progression"
     ></canvas>
