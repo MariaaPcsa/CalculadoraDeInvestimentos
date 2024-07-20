@@ -2,6 +2,7 @@
 import { generateReturnsArray } from "./src/investmentGoals";
 //infortando a biblooteca de graficos 
 import { Chart } from "chart.js/auto";
+import { createTable } from "./src/table";
 
 // const calculateButton = document.getElementById('calculate-results');
 
@@ -13,16 +14,53 @@ const progressionChart = document.getElementById('progression');
 let doughnutChartReference = {};
 let progressionChartReference = {};
 
+//elementos da tabela
 
-const finalmoneydistribution =document.getElementById('final-money-distribution');
-const progression =document.getElementById('progression');
+const columnsArray = [
+  { columnLabel: 'Mês', accessor: 'month' },
+  {
+    columnLabel: 'Total Investido',
+    accessor: 'investedAmount',
+    format: (numberInfo) => formatCurrencyToTable(numberInfo),
+  },
+  {
+    columnLabel: 'Rendimento Mensal',
+    accessor: 'interestReturns',
+    format: (numberInfo) => formatCurrencyToTable(numberInfo),
+  },
+  {
+    columnLabel: 'Rendimento Total',
+    accessor: 'totalInterestReturns',
+    format: (numberInfo) => formatCurrencyToTable(numberInfo),
+  },
+  {
+    columnLabel: 'Quantia Total',
+    accessor: 'totalAmount',
+    format: (numberInfo) => formatCurrencyToTable(numberInfo),
+  },
+];
+
+//função que forma as celulas 
+function formatCurrencyToTable(value) {
+  return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+  
+};
+
+
+
+// const finalmoneydistribution =document.getElementById('final-money-distribution');
+// const progression =document.getElementById('progression');
 
 const form = document.getElementById('investiment-form');
 const clearFormButton = document.getElementById('clear-form');
 //função para formatar as casa décimais do gráfico Doughnut
+
+
+
 function formatCurrency(value) {
   return value.toFixed(2);
-}
+};
+
 
 
 function renderProgression(evt) {
@@ -30,7 +68,7 @@ function renderProgression(evt) {
 //caso tenha algum compo com um dado errado afunção impede que ele seja execultada 
     if (document.querySelector('.error')) {
         return;
-      }
+      };
       resetCharts();
      // const startingAmount = Number(form['startingAmount'].value); método para converte , para .       .replace(',', '.')
     const startingAmount = Number(document.getElementById('starting-amount').value.replace(',', '.')
@@ -50,7 +88,7 @@ function renderProgression(evt) {
     if (isNaN(startingAmount) || isNaN(additionalContribution) || isNaN(timeAmount) || isNaN(returnRate) || isNaN(taxRate)) {
         console.error("Por favor, insira valores numéricos válidos.");
         return;
-    }
+    };
 //gerando o array 
     const returnsArray = generateReturnsArray(
         startingAmount,
@@ -61,7 +99,7 @@ function renderProgression(evt) {
         returnRatePeriod
     );
 
-//Criar um gráfico com a mpmjs
+//Gráfico de pizza criado com  com a mpmjs Chart
 const finalInvestmentObject = returnsArray[returnsArray.length - 1];
 doughnutChartReference = new Chart(finalMoneyChart, {
     type: 'doughnut',
@@ -122,11 +160,14 @@ doughnutChartReference = new Chart(finalMoneyChart, {
       },
     }
   });
+
+//Crianado o tabela dentro do main
+createTable(columnsArray, returnsArray, 'results-table');
 }
 //função para limpar os grafico
   function isObjectEmpty(obj) {
   return Object.keys(obj).length === 0;
-}
+};
 
 //função para limpar os grafico
 function resetCharts() {
@@ -201,7 +242,19 @@ for (const formElement of form) {
     if (formElement.tagName === 'INPUT' && formElement.hasAttribute('name')) {
       formElement.addEventListener('blur', validateInput);
     }
-}
+};
+
+const mainEl = document.querySelector('main');
+const carouselEl = document.getElementById('carousel');
+const nextButton = document.getElementById('slide-arrow-next');
+const previousButton = document.getElementById('slide-arrow-previous');
+
+nextButton.addEventListener('click', () => {
+  carouselEl.scrollLeft += mainEl.clientWidth;
+});
+previousButton.addEventListener('click', () => {
+  carouselEl.scrollLeft -= mainEl.clientWidth;
+});
 
 form.addEventListener('submit', renderProgression);
 // calculateButton.addEventListener('click', renderProgression);
