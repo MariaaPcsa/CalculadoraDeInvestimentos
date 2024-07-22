@@ -187,7 +187,8 @@ function resetCharts() {
       form['time-amount'].value = '';
       form['return-rate'].value = '';
       form['tax-rate'].value = '';
-    
+      
+      
       resetCharts();
     
       const errorInputContainers = document.querySelectorAll('.error');
