@@ -18,12 +18,6 @@ Uma aplicação web para simular investimentos com juros compostos. Permite ao u
 
 ---
 
-## 📷 Captura de tela
-
-![Imagem da aplicação](https://raw.githubusercontent.com/MariaaPcsa/CalculadoraDeInvestimentos/main/assets/preview.png) <!-- Substitua pelo caminho real do seu screenshot, se tiver -->
-
----
-
 ## 🔍 Como funciona
 
 O sistema solicita três informações do usuário:
